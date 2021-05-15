@@ -5,7 +5,9 @@ import Selector from './selector'
 class Search extends React.Component {
 
   state = {
-    searchedBooks: []
+    searchedBooks: [],
+    error:'No books match your search',
+    showError:false,
   }
 
   render() {
@@ -21,12 +23,12 @@ class Search extends React.Component {
                BooksAPI.search(event.target.value)
                .then(data =>
                 {console.log(data);
-                  if( !data.error){this.setState(()=>({searchedBooks:data}))}
-                  else{this.setState(()=>({searchedBooks:[]}))}
+                  if( !data.error){this.setState(()=>({searchedBooks:data,showError:false}))}
+                  else{this.setState(()=>({searchedBooks:[],showError:true}))}
                 }
-                ).catch(() =>{this.setState({searchedBooks:[]})})
+                ).catch(() =>{this.setState({searchedBooks:[],showError:true})})
               } 
-              else{this.setState(()=>({searchedBooks:[]}))}
+              else{this.setState(()=>({searchedBooks:[],showError:false}))}
             }
             }
             placeholder="Search by title or author"/>
@@ -34,6 +36,7 @@ class Search extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
+          {this.state.showError? (<h1>{this.state.error}</h1>):('')}
           <ol className="books-grid">
             {this.state.searchedBooks.map(book =>
               ( <li key={book.id}>
