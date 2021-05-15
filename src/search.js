@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
+import Selector from './selector'
 class Search extends React.Component {
+
   state = {
     searchedBooks: []
   }
+
   render() {
     return (
         <div className="search-books">
@@ -38,13 +41,7 @@ class Search extends React.Component {
                     <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail: ''})`, }}></div>
                         <div className="book-shelf-changer">
-                        <select>
-                            <option value="move" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                        </select>
+                        <Selector book={book}/>
                         </div>
                     </div>
                     <div className="book-title">{book.title}</div>
