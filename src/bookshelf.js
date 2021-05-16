@@ -4,6 +4,7 @@ export default class Bookshelf extends React.Component {
 
           render() {  
             const shelfTitle = this.props.shelfTitle;
+            // const updateShelf = this.props.updateShelf;
         return (
             <div>
             <div className="bookshelf">
@@ -16,7 +17,7 @@ export default class Bookshelf extends React.Component {
                     <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail: ''})`, }}></div>
                         <div className="book-shelf-changer">
-                        <Selector book={book}/>
+                        <Selector book={book} updateShelf={this.props.updateShelf}/>
                         </div>
                     </div>
                     <div className="book-title">{book.title}</div>
