@@ -35,29 +35,31 @@ export default class Myreads extends React.Component {
                 console.log(res)
                 // newbook.shelf = shelf 
               })
-            let newShelf = this.state[shelf]
-            let newBooks = newShelf.filter(
-                book=>(book.id !== newbook.id)
-            )
-            newBooks.push(newbook);
-            if(shelf == "currentlyReading" ){
-                this.setState({currentlyReading:newBooks});}
-                else if (shelf == "wantToRead" ){
-                    this.setState({wantToRead:newBooks});
+            if(shelf !='none'){
+                let newShelf = this.state[shelf]
+                let newBooks = newShelf.filter(
+                    book=>(book.id !== newbook.id)
+                )
+                newBooks.push(newbook);
+                if(shelf == "currentlyReading" ){
+                    this.setState({currentlyReading:newBooks});
+                }else if (shelf == "wantToRead" ){
+                        this.setState({wantToRead:newBooks});
                 }else if (shelf == "read" ){
-                    this.setState({read:newBooks});
+                        this.setState({read:newBooks});
                 }
-            let oldBooks = oldShelf.filter(
-                book=>(book.id !== newbook.id)
-            )
-            if(newbook.shelf == "currentlyReading" ){
-            this.setState({currentlyReading:oldBooks});}
-            else if (newbook.shelf == "wantToRead" ){
-                this.setState({wantToRead:oldBooks});
-            }else if (newbook.shelf == "read" ){
-                this.setState({read:oldBooks});
-            }
-                
+            } 
+                let oldBooks = oldShelf.filter(
+                    book=>(book.id !== newbook.id)
+                )
+                if(newbook.shelf == "currentlyReading" ){
+                this.setState({currentlyReading:oldBooks});}
+                else if (newbook.shelf == "wantToRead" ){
+                    this.setState({wantToRead:oldBooks});
+                }else if (newbook.shelf == "read" ){
+                    this.setState({read:oldBooks});
+                }
+             
           }
           render() {
             return (
