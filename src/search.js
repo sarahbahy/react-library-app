@@ -9,7 +9,12 @@ class Search extends React.Component {
     error:'No books match your search',
     showError:false,
   }
-
+  updateShelf = (book, shelf) =>{
+    BooksAPI.update(book, shelf).then( res => {
+      console.log(res)
+    })
+  }
+  
   render() {
     return (
         <div className="search-books">
@@ -22,8 +27,14 @@ class Search extends React.Component {
               if(event.target.value.length > 0){
                BooksAPI.search(event.target.value)
                .then(data =>
-                {console.log(data);
-                  if( !data.error){this.setState(()=>({searchedBooks:data,showError:false}))}
+                {
+                  if( !data.error){ //find if searched book has a shelf and assign this shelf value to it
+                    BooksAPI.getAll().then( books => { books.map(book =>
+                       { 
+                        data.find((searchedbook) => { if (searchedbook.id == book.id){ searchedbook.shelf = book.shelf} })
+                      } )
+                    this.setState(()=>({searchedBooks:data,showError:false}))
+                  }) }
                   else{this.setState(()=>({searchedBooks:[],showError:true}))}
                 }
                 ).catch(() =>{this.setState({searchedBooks:[],showError:true})})
@@ -44,7 +55,7 @@ class Search extends React.Component {
                     <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail: ''})`, }}></div>
                         <div className="book-shelf-changer">
-                        <Selector book={book}/>
+                        <Selector book={book} updateShelf={this.updateShelf}/>
                         </div>
                     </div>
                     <div className="book-title">{book.title}</div>
