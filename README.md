@@ -1,4 +1,4 @@
-# MyReads Project
+# Library Project
 
 a books app that divides books into 3 categories which are currently reading , to read , read. there is also a search page to search in books. 
 
